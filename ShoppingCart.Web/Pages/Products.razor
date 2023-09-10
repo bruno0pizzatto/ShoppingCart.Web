@@ -12,7 +12,7 @@ else
 
     var productCount = Products.Count();
 
-    if(productCount > 0)
+    @if(productCount > 0)
     {
         const int itemsPerRow = 4;
         var productsRowList = new List<ProductDto>();
@@ -27,7 +27,7 @@ else
                     <div class="col-md-3 mb-2">
                         <a href="#">
                             <div class="card">
-                                < class="img-thumbnail" src="@item.ImageURL"/>
+                                <img class="img-thumbnail" src="@item.ImageURL">
                                 <div class="card-body">
                                     <h5 class="card-title mb-3">
                                         @item.Name
