@@ -25,13 +25,39 @@ namespace ShoppingCart.Api.Controllers
                 var products = await this.productRepository.GetItems();
                 var productCategories = await this.productRepository.GetCategories();
 
-                if(products == null || productCategories == null)
+                if (products == null || productCategories == null)
                 {
                     return NotFound();
                 }
                 else
                 {
                     var productDto = products.ConvertToDto(productCategories);
+                    return Ok(productDto);
+                }
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error retriving data from the database");
+            }
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProductDto>> GetItem(int id)
+        {
+            try
+            {
+                var product = await this.productRepository.GetItem(id);
+
+                if (product == null)
+                {
+                    return BadRequest();
+                }
+                else
+                {
+                    var productCategory = await this.productRepository.GetCategory(product.CategoryId);
+                    var productDto = product.ConvertToDto(productCategory);
+                    
                     return Ok(productDto);
                 }
             }
