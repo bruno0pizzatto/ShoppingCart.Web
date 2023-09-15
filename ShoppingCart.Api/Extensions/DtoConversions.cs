@@ -60,5 +60,22 @@ namespace ShoppingCart.Api.Extensions
                         TotalPrice = product.Price * cartItem.Qty
                     }).ToList();
         }
+
+        public static CartItemDto ConvertToDto(this CartItem cartItem,
+                                                    Product product)
+        {
+            return new CartItemDto
+            {
+                Id = cartItem.Id,
+                ProductId = cartItem.ProductId,
+                ProductName = product.Name,
+                ProductDescription = product.Description,
+                ProductImageURL = product.ImageURL,
+                Price = product.Price,
+                CartId = cartItem.CartId,
+                Qty = cartItem.Qty,
+                TotalPrice = product.Price * cartItem.Qty
+            };
+        }
     }
 }
