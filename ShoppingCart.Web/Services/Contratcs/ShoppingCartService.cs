@@ -39,9 +39,30 @@ namespace ShoppingCart.Web.Services.Contratcs
             }
         }
 
-        public Task<IEnumerable<CartItemDto>> GetItems(int userId)
+        public async Task<IEnumerable<CartItemDto>> GetItems(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await httpClient.GetAsync($"api/{userId}/GetItems");
+
+                if(response.IsSuccessStatusCode)
+                {
+                    if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+                        return Enumerable.Empty<CartItemDto>();
+                    }
+                    else
+                    {
+                        var message = await response.Content.ReadAsStringAsync();
+                        throw new Exception($"Http status code: {response.StatusCode} Message -{message}");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
