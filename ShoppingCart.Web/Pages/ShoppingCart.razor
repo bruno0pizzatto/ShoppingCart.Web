@@ -1,0 +1,15 @@
+﻿@page "/ShoppingCart"
+@inherits ShoppingCartBase
+
+@if(ShoppingCartItems == null && ErrorMessage == null)
+{
+    <DisplaySpinner></DisplaySpinner>
+}
+else if(ErrorMessage != null)
+{
+    <DisplayError ErrorMessage="@ErrorMessage"></DisplayError>
+}
+else
+{
+
+}

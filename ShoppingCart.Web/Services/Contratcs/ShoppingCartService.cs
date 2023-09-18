@@ -45,18 +45,20 @@ namespace ShoppingCart.Web.Services.Contratcs
             {
                 var response = await httpClient.GetAsync($"api/{userId}/GetItems");
 
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
                         return Enumerable.Empty<CartItemDto>();
                     }
-                    else
-                    {
-                        var message = await response.Content.ReadAsStringAsync();
-                        throw new Exception($"Http status code: {response.StatusCode} Message -{message}");
-                    }
+
+                    return await response.Content.ReadFromJsonAsync<IEnumerable<CartItemDto>>();
                 }
+                else
+                {
+                    var message = await response.Content.ReadAsStringAsync();
+                    throw new Exception($"Http status code: {response.StatusCode} Message -{message}");
+                }  
             }
             catch (Exception)
             {
