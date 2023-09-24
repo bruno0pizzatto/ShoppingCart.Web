@@ -4,7 +4,7 @@ using ShoppingCart.Web.Services.Contratcs;
 
 namespace ShoppingCart.Web.Pages
 {
-    public class ShoppingCartBase : ComponentBase
+    public class ShoppingCartsBase : ComponentBase
     {
         [Inject]
         public IShoppingCartService ShoppingCartService { get; set; }
