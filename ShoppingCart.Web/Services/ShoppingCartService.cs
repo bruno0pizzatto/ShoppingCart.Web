@@ -1,7 +1,8 @@
 ﻿using ShoppingCart.Models.DTOs;
+using ShoppingCart.Web.Services.Contratcs;
 using System.Net.Http.Json;
 
-namespace ShoppingCart.Web.Services.Contratcs
+namespace ShoppingCart.Web.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
@@ -15,13 +16,13 @@ namespace ShoppingCart.Web.Services.Contratcs
         {
             try
             {
-                var response = await httpClient.PostAsJsonAsync<CartItemToAddDto>("api/ShoppingCart", cartItemToAddDto);
+                var response = await httpClient.PostAsJsonAsync("api/ShoppingCart", cartItemToAddDto);
 
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    if(response.StatusCode == System.Net.HttpStatusCode.NoContent) 
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        return default(CartItemDto);
+                        return default;
                     }
 
                     return await response.Content.ReadFromJsonAsync<CartItemDto>();
@@ -58,7 +59,7 @@ namespace ShoppingCart.Web.Services.Contratcs
                 {
                     var message = await response.Content.ReadAsStringAsync();
                     throw new Exception($"Http status code: {response.StatusCode} Message -{message}");
-                }  
+                }
             }
             catch (Exception)
             {
