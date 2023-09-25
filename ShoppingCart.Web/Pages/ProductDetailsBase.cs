@@ -40,7 +40,7 @@ namespace ShoppingCart.Web.Pages
             try
             {
                 var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
-                NavigationManager.NavigateTo("/ShoppingCart");
+                NavigationManager.NavigateTo("/ShoppingCarts");
             }
             catch (Exception)
             {
